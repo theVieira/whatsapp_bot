@@ -3,7 +3,8 @@
 	"version": "1.0.0",
 	"main": "bot.js",
 	"scripts": {
-		"start": "node --watch ./src/bot.js"
+		"start": "node ./src/bot.js",
+		"dev": "node --watch ./src/bot.js"
 	},
 	"keywords": [],
 	"author": "",
