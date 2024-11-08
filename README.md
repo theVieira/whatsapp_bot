@@ -21,8 +21,10 @@
 - `npm start`
   - Irá gerar o QR Code para conexão com seu aplicativo
 
+Ao ler o QR Code, mantenha seu aplicativo aberto até a sincronização finalizar
+
 Após a conexão o script executará a varredura dos chats,
 
-ào finalizar o console mostrará uma mensagem 'ready to send message',
+ào finalizar o console mostrará uma mensagem 'ready to send message' (esse processo pode demorar um pouco),
 
 isso significa que tudo ocorreu corretamente e sua mensagem deve ser enviada no horário programado
