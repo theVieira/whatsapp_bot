@@ -1,30 +1,41 @@
-## Pré requisitos
+# Whatsapp bot
+
+Enviar mensagem automaticamente para chats (conversas) do whatsapp
+
+### Recomendações
+
+- Usar o **PM2** para executar em segundo plano
+
+### Pré requisitos
 
 - Node.js v22.11.0
 - Chrome
 
-## Como configurar
+### Como configurar
 
-- **Arquivo de configuração ./src/config/config.json**
+- **Crie o arquivo de configuração** :: **_config.json_**
 
-- Defina os grupos ["Grupo 1", "Grupo 2"]
+```{
+  schedules: [
+    {
+      "time": "deve ser uma _expressão cron_"},
+      "message": "mensagem à ser enviada",
+      "chats": ["deve inserir o mesmo nome do chat no aplicativo"]
+    }
+  ],
+  "timezone": "deve inserir uma timezone válida"
+}
+```
 
-  - Os grupos devem ser definidos com o mesmo nome que aparece no aplicativo
+### Como executar
 
-- Defina a mensagem a ser enviada
+##### Com o PM2
 
-- Defina o horário de envio da mensagem
-  - O horário deve ser definido sem o 0 (hour: "8", minute: "9")
+- Execute `pm2 start npm --name whatsapp-bot -- start`
+- Então `pm2 logs --lines 50 whatsapp-bot`
+- Conecte-se com o QR-Code
 
-## Como executar
+##### Sem o PM2
 
-- `npm start`
-  - Irá gerar o QR Code para conexão com seu aplicativo
-
-Ao ler o QR Code, mantenha seu aplicativo aberto até a sincronização finalizar
-
-Após a conexão o script executará a varredura dos chats,
-
-ào finalizar o console mostrará uma mensagem 'ready to send message' (esse processo pode demorar um pouco),
-
-isso significa que tudo ocorreu corretamente e sua mensagem deve ser enviada no horário programado
+- Execute `npm start`
+- Conecte-se com o QR-Code
