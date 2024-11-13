@@ -1,24 +1,19 @@
 const { Client, LocalAuth } = require('whatsapp-web.js')
 const qrcode = require('qrcode-terminal')
-const { schedules } = require('../config.json')
 const createSchedules = require('./createSchedules')
-const filterChats = require('./filterChats')
 
 const client = new Client({
 	authStrategy: new LocalAuth({ dataPath: 'whatsapp-session' }),
 })
 
 client.once('ready', async () => {
-	console.log('Client is connected')
-
 	client
 		.getChats()
 		.then((value) => {
-			schedules.forEach((schedule) => {
-				createSchedules(filterChats(value, schedule.chats))
-			})
+			createSchedules(value)
 		})
 		.catch((e) => console.error('error', e))
+		.finally(() => console.log('client connected'))
 })
 
 client.on('qr', (qr) => {
@@ -27,7 +22,7 @@ client.on('qr', (qr) => {
 
 client.on('message', (msg) => {
 	if (msg.body == '!ping') {
-		client.sendMessage(msg.from, 'ping')
+		client.sendMessage(msg.from, 'pong')
 	}
 })
 
