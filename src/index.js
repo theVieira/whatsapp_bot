@@ -12,8 +12,8 @@ client.once('ready', async () => {
 		.then((value) => {
 			createSchedules(value)
 		})
-		.then(() => console.log('client is ready!'))
 		.catch((e) => console.error('error', e))
+		.finally(console.log('client is ready!'))
 })
 
 client.on('qr', (qr) => {
