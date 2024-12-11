@@ -1,19 +1,33 @@
 const { Client, LocalAuth } = require('whatsapp-web.js')
 const qrcode = require('qrcode-terminal')
-const createSchedules = require('./createSchedules')
+const cron = require('node-cron')
+const { schedules, timezone } = require('../config.json')
 
 const client = new Client({
 	authStrategy: new LocalAuth({ dataPath: 'whatsapp-session' }),
 })
 
 client.once('ready', async () => {
-	client
-		.getChats()
-		.then((value) => {
-			createSchedules(value)
-		})
-		.catch((e) => console.error('error', e))
-		.finally(console.log('client is ready!'))
+	schedules.forEach((schedule) => {
+		cron.schedule(
+			schedule.time,
+			() => {
+				client.getChats().then((chats) => {
+					chats
+						.filter((chat) => schedule.chats.includes(chat.name))
+						.filter((chat) => chat.lastMessage.body != schedule.message)
+						.forEach((chat) => chat.sendMessage(schedule.message))
+				})
+			},
+			{
+				runOnInit: false,
+				scheduled: true,
+				timezone,
+			}
+		)
+	})
+
+	console.log('ok')
 })
 
 client.on('qr', (qr) => {
