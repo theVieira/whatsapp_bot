@@ -15,15 +15,17 @@ Enviar mensagem automaticamente para chats (conversas) do whatsapp
 
 - **Crie o arquivo de configuração** :: **_config.json_**
 
+- **Insira a imagem a ser enviada na pasta public e configure no config.json**
+
 ```{
   schedules: [
     {
       "time": "deve ser uma _expressão cron_"},
-      "message": "mensagem à ser enviada",
       "chats": ["deve inserir o mesmo nome do chat no aplicativo"]
     }
   ],
-  "timezone": "deve inserir uma timezone válida"
+  "timezone": "deve inserir uma timezone válida",
+  "media": "nome do arquivo na pasta public"
 }
 ```
 
