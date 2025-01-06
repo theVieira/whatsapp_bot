@@ -31,7 +31,7 @@ client.once('ready', async () => {
 				})
 			},
 			{
-				runOnInit: true,
+				runOnInit: false,
 				scheduled: true,
 				timezone,
 			}
